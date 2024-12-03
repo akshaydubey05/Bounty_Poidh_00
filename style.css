@@ -1,51 +1,172 @@
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light gray text */
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
+/* Container for the content */
 .container {
-    max-width: 600px;
+    width: 100%;
+    max-width: 700px;
     margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    background-color: #1f1f1f; /* Slightly lighter dark background */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+    transition: all 0.3s ease-in-out; /* Smooth transitions */
 }
 
+/* Title Style */
 h1 {
     text-align: center;
     margin-bottom: 20px;
+    color: #ff8c00; /* Vibrant color for the title */
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
 }
 
+/* Paragraph Style */
+p {
+    text-align: center;
+    color: #b0b0b0;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+/* Textarea Styling */
 textarea {
     width: 100%;
-    height: 100px;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    height: 120px;
+    padding: 12px;
+    margin-bottom: 15px;
+    background-color: #2a2a2a; /* Dark background for input fields */
+    color: #e0e0e0; /* Light text for readability */
+    border: 1px solid #444;
+    border-radius: 6px;
+    resize: none; /* Disable resize */
+    font-size: 16px;
+    transition: border-color 0.3s ease;
 }
 
+/* Textarea Focus State */
+textarea:focus {
+    outline: none;
+    border-color: #ff8c00; /* Border turns orange on focus */
+}
+
+/* Button Styling */
 button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
+    background-color: #ff8c00; /* Vibrant button color */
+    color: #fff;
+    padding: 12px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    margin-top: 10px;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+/* Button Hover and Active States */
 button:hover {
-    background-color: #0056b3;
+    background-color: #e07b00;
+    transform: scale(1.05);
 }
 
+button:active {
+    transform: scale(1);
+}
+
+/* Select and Input Styling */
 select, input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
+    margin-bottom: 15px;
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+/* Select and Input Focus State */
+select:focus, input:focus {
+    outline: none;
+    border-color: #ff8c00;
+}
+
+/* Loading and Result Section Styling */
+#loading, #result-link {
+    text-align: center;
+    color: #b0b0b0;
+    display: none;
+}
+
+#result-link a {
+    color: #ff8c00; /* Orange link */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#result-link a:hover {
+    text-decoration: underline;
+}
+
+/* Bounty Result Section Styling */
+#bounty-result {
+    display: none;
+    margin-top: 20px;
+}
+
+#bounty-result h2 {
+    color: #ff8c00;
+    font-size: 24px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+}
+
+#bounty-result p {
+    color: #ccc;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Loading Text Animation */
+#loading-text {
+    color: #ff8c00;
+    font-size: 18px;
+    font-weight: bold;
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    textarea, select, input, button {
+        font-size: 14px;
+    }
 }

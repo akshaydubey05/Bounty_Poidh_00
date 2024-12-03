@@ -16,6 +16,11 @@
         <textarea id="hint" placeholder="e.g., Create a bounty for AI-based contract audit"></textarea>
         <button id="generate-bounty">Generate Bounty Idea</button>
 
+        <!-- Loading and Dynamic Text -->
+        <div id="loading" style="display: none;">
+            <p id="loading-text">Generating bounty idea... Please wait.</p>
+        </div>
+
         <!-- AI Generated Bounty -->
         <div id="bounty-result" style="display: none;">
             <h2>Bounty Title: <span id="bounty-title"></span></h2>
@@ -36,10 +41,6 @@
         </div>
 
         <!-- Transaction Submission -->
-        <div id="loading" style="display: none;">
-            <p>Submitting bounty...</p>
-        </div>
-
         <div id="result-link" style="display: none;">
             <p>Bounty created! You can view it <a id="bounty-link" href="" target="_blank">here</a></p>
         </div>

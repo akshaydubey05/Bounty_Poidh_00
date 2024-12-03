@@ -5,21 +5,60 @@ document.getElementById('generate-bounty').addEventListener('click', async () =>
         return;
     }
 
-    // Display loading state
+    // Display loading state with dynamic text
+    const loadingText = document.getElementById('loading-text');
+    loadingText.textContent = 'Generating bounty idea... Please wait.';
     document.getElementById('loading').style.display = 'block';
     document.getElementById('bounty-result').style.display = 'none';
 
-    // Call the AI API to generate the bounty
-    const bounty = await generateBountyFromAI(hint);
+    try {
+        // Call the simulated API to generate the bounty (you can replace this with a real API)
+        const bounty = await generateBountyFromAPI(hint);
 
-    // Hide loading state and show generated bounty
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('bounty-result').style.display = 'block';
+        // Hide loading state and show generated bounty
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('bounty-result').style.display = 'block';
 
-    // Display the generated bounty details
-    document.getElementById('bounty-title').textContent = bounty.title;
-    document.getElementById('bounty-description').textContent = bounty.description;
+        // Display the generated bounty details dynamically
+        document.getElementById('bounty-title').textContent = bounty.title;
+        document.getElementById('bounty-description').textContent = bounty.description;
+    } catch (error) {
+        // In case of an error, hide loading and show an alert
+        document.getElementById('loading').style.display = 'none';
+        alert('Failed to generate bounty idea.');
+    }
 });
+
+// Simulated function to generate bounty idea from an API
+async function generateBountyFromAPI(hint) {
+    // Simulated delay to mimic an API response
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const ideas = [
+                {
+                    title: `Bounty: Build a Smart Contract for ${hint}`,
+                    description: `This bounty involves creating a secure smart contract for ${hint}. Focus on security and efficiency.`
+                },
+                {
+                    title: `Bounty: Develop an AI Algorithm for ${hint}`,
+                    description: `Create an AI-based solution for ${hint}. The task involves creating a predictive model for the given use case.`
+                },
+                {
+                    title: `Bounty: Design a Web App for ${hint}`,
+                    description: `Design and implement a responsive web application for ${hint}. Ensure it follows best UI/UX principles.`
+                },
+                {
+                    title: `Bounty: Cryptocurrency Wallet for ${hint}`,
+                    description: `Develop a secure cryptocurrency wallet for ${hint}, focusing on both security and user experience.`
+                }
+            ];
+
+            // Return a random bounty idea
+            const bounty = ideas[Math.floor(Math.random() * ideas.length)];
+            resolve(bounty);
+        }, 1500); // Simulate a 1.5-second delay (to mimic real API response time)
+    });
+}
 
 document.getElementById('submit-bounty').addEventListener('click', async () => {
     const chain = document.getElementById('chain').value;
@@ -42,20 +81,6 @@ document.getElementById('submit-bounty').addEventListener('click', async () => {
     document.getElementById('bounty-link').href = transactionLink;
 });
 
-async function generateBountyFromAI(hint) {
-    // Simulated delay to mimic an API response
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({
-                title: `Bounty for ${hint}`,
-                description: `Description: This bounty is for a task related to: ${hint}. Please provide details and submit to the platform.`
-            });
-        }, 1000); // 1-second delay
-    });
-}
-
-
-
 async function submitBountyToBlockchain(chain, amount, title, description) {
     if (!window.ethereum) {
         alert("MetaMask is not installed. Please install MetaMask to use this feature.");
@@ -63,7 +88,6 @@ async function submitBountyToBlockchain(chain, amount, title, description) {
     }
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-
     try {
         // Request accounts
         await provider.send("eth_requestAccounts", []);
@@ -75,16 +99,8 @@ async function submitBountyToBlockchain(chain, amount, title, description) {
             data: ethers.utils.hexlify(ethers.utils.toUtf8Bytes(`${title}: ${description}`))
         };
 
-        // Send transaction
         const tx = await signer.sendTransaction(transaction);
-        console.log("Transaction submitted:", tx.hash);
-
-        // Wait for confirmation
-        const receipt = await tx.wait();
-        console.log("Transaction confirmed:", receipt);
-
-        // Provide feedback to the user
-        alert("Transaction successful! View it on Etherscan.");
+        await tx.wait();
         return `https://etherscan.io/tx/${tx.hash}`;
     } catch (error) {
         console.error("Transaction failed:", error);
@@ -92,4 +108,3 @@ async function submitBountyToBlockchain(chain, amount, title, description) {
         throw error;
     }
 }
-
